@@ -46,8 +46,8 @@ const addTask = (): void => {
       <button @click=" addTask()">Submit</button>
     </div>
 
-    <div class="tasks">
-      <div class="task" v-for="task in tasks">
+    <div class="list-of-tasks" v-for="task in tasks">
+      <div class="task">
         <button class="complete">Complete</button>
         <div class="content">
           {{ task.content }}

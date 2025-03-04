@@ -21,4 +21,22 @@ const update = (e: string): void => {
   </div>
 </template>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+.view {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+
+  margin-top: 1em;
+  width: 50%;
+
+  button {
+    position: relative;
+    width: 25%;
+
+    padding: 0.3em;
+
+    font-size: 100%;
+  }
+}
+</style>

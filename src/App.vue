@@ -76,24 +76,6 @@ const addTask = (): void => {
 
   background: #aaa;
 
-  .view {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-evenly;
-
-    margin-top: 1em;
-    width: 50%;
-
-    button {
-      position: relative;
-      width: 25%;
-
-      padding: 0.3em;
-
-      font-size: 100%;
-    }
-  }
-
   .new-task {
     display: flex;
     flex-direction: row;

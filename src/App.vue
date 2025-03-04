@@ -2,6 +2,7 @@
 import { ref } from "vue";
 import type { Ref } from "vue";
 
+import View from "./components/View.vue";
 import Tasks from "./components/Tasks.vue";
 
 interface Task {
@@ -15,9 +16,14 @@ interface Task {
 export type { Task };
 
 const newTask: Ref<string> = ref("Lorem Ispum");
+const view: Ref<string> = ref("important");
+
+const updateView = (e: string): void => {
+  view.value = e;
+}
 
 const tasks: Ref<Task[]> = ref([
-  { id: 1, content: "Lorem", archived: false, important: false, completed: false },
+  { id: 1, content: "Lorem", archived: false, important: true, completed: false },
   { id: 2, content: "Ispum", archived: false, important: false, completed: false }
 ]);
 
@@ -29,25 +35,11 @@ const addTask = (): void => {
     newTask.value = "";
   }
 }
-const dbg = (): void => {
-  console.log(tasks.value)
-}
-
 </script>
 
 <template>
   <div class="screen">
-    <div class="view">
-      <button class="tasks">
-        Tasks
-      </button>
-      <button class="important">
-        Important
-      </button>
-      <button class="archived">
-        Archived
-      </button>
-    </div>
+    <View @update="(e) => updateView(e)" />
 
     <div class="new-task">
       <textarea v-model="newTask" placeholder="Enter your task here.">{{ newTask }}</textarea>
@@ -55,7 +47,7 @@ const dbg = (): void => {
     </div>
 
     <div class="list-of-tasks">
-      <Tasks v-if="tasks.length" v-for="task in tasks" :task="task" @completed="() => {
+      <Tasks v-if="tasks.length" v-for="task in tasks" :task="task" :view="view" @completed="() => {
         const index = tasks.findIndex(() => task.id);
         tasks[index].completed = !tasks[index].completed;
         tasks[index].archived = !tasks[index].archived;

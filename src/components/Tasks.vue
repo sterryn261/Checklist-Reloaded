@@ -2,13 +2,24 @@
 import type { Task } from '../App.vue';
 
 const props = defineProps<{
-  task: Task
+  task: Task,
+  view: string
 }>();
+
+const filter = (): boolean => {
+  if ((props.view === "tasks" && props.task.archived === false) ||
+    (props.view === "important" && props.task.archived === false && props.task.important === true) ||
+    (props.view === "archived" && props.task.archived === true)) {
+    return true;
+  }
+  return false;
+}
+
 
 </script>
 
 <template>
-  <div class="task">
+  <div v-if="filter()" class="task">
     <button class="completed" @click="$emit('completed')">Complete</button>
     <div class="content">
       {{ props.task.content }}

@@ -48,14 +48,14 @@ const addTask = (): void => {
 
     <div class="list-of-tasks">
       <Tasks v-if="tasks.length" v-for="task in tasks" :task="task" :view="view" @completed="() => {
-        const index = tasks.findIndex(() => task.id);
+        const index = tasks.findIndex((e) => task.id === e.id);
         tasks[index].completed = !tasks[index].completed;
         tasks[index].archived = !tasks[index].archived;
       }" @archived="() => {
-        const index = tasks.findIndex(() => task.id);
+        const index = tasks.findIndex((e) => task.id === e.id);
         tasks[index].archived = !tasks[index].archived;
       }" @important="() => {
-        const index = tasks.findIndex(() => task.id);
+        const index = tasks.findIndex((e) => task.id === e.id);
         tasks[index].important = !tasks[index].important;
       }" />
       <div v-if="!tasks.length" class="empty-tasks"> Nothing here.</div>

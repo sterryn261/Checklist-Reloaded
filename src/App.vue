@@ -9,24 +9,28 @@ interface Task {
   content: string;
   archived: boolean;
   important: boolean;
+  completed: boolean;
 }
 
 export type { Task };
 
-const newTask: Ref<string> = ref("Skibidi");
+const newTask: Ref<string> = ref("Lorem Ispum");
 
 const tasks: Ref<Task[]> = ref([
-  { id: 1, content: "aaa", archived: false, important: false },
-  { id: 2, content: "bbb", archived: false, important: false }
+  { id: 1, content: "Lorem", archived: false, important: false, completed: false },
+  { id: 2, content: "Ispum", archived: false, important: false, completed: false }
 ]);
 
 const addTask = (): void => {
   if (newTask.value !== "") {
     const id: number = Math.max(...tasks.value.map((element) => element.id), 0) + 1;
 
-    tasks.value = [...tasks.value, { id: id, content: newTask.value, archived: false, important: false }];
+    tasks.value = [...tasks.value, { id: id, content: newTask.value, archived: false, important: false, completed: false }];
     newTask.value = "";
   }
+}
+const dbg = (): void => {
+  console.log(tasks.value)
 }
 
 </script>
@@ -51,7 +55,18 @@ const addTask = (): void => {
     </div>
 
     <div class="list-of-tasks">
-      <Tasks v-for="task in tasks" :task="task" />
+      <Tasks v-if="tasks.length" v-for="task in tasks" :task="task" @completed="() => {
+        const index = tasks.findIndex(() => task.id);
+        tasks[index].completed = !tasks[index].completed;
+        tasks[index].archived = !tasks[index].archived;
+      }" @archived="() => {
+        const index = tasks.findIndex(() => task.id);
+        tasks[index].archived = !tasks[index].archived;
+      }" @important="() => {
+        const index = tasks.findIndex(() => task.id);
+        tasks[index].important = !tasks[index].important;
+      }" />
+      <div v-if="!tasks.length" class="empty-tasks"> Nothing here.</div>
     </div>
   </div>
 </template>

@@ -9,14 +9,14 @@ const props = defineProps<{
 
 <template>
   <div class="task">
-    <button class="complete">Complete</button>
+    <button class="completed" @click="$emit('completed')">Complete</button>
     <div class="content">
       {{ props.task.content }}
     </div>
 
     <div class="side-functions">
-      <button class="important">Important</button>
-      <button class="delete">Delete</button>
+      <button class="important" @click="$emit('important')">Important</button>
+      <button class="archive" @click="$emit('archived')">Archive</button>
     </div>
   </div>
 </template>
@@ -37,7 +37,6 @@ const props = defineProps<{
     width: 70%;
 
     margin-left: 1em;
-    color: #ffffff;
   }
 
   .side-functions {
